@@ -10,6 +10,7 @@ use App\User;
 use App\Message;
 use View;
 
+
 class RequestsController extends Controller{
 
 
@@ -84,6 +85,41 @@ class RequestsController extends Controller{
 
 
      
+    }
+
+    public function CreateRequest(Request $request)
+    {
+        RequestDB::beginTransaction();
+        
+        try {
+
+            $newrequest  = new Request;
+            $newrequest->name = $request->name;
+            $newrequest->content = $request->content;
+            $newrequest->datetime = $request->datetime;
+            $newrequest->state = '1';
+            $newrequest->Guest_id = $request->Guest_id;
+            $newrequest->Request_states_id = $request->Request_states_id;
+            $newrequest->Budget_id = $request->Budget_id;
+            $newrequest->Category_id = $request->Category_id;
+            $newrequest->Tecnology_id = $request->Tecnology_id;
+            $newrequest->save();
+
+            if($newrequest->save()){
+                RequestDB::commit();                
+            }
+
+
+
+
+
+
+
+        } catch (\Exception $e) {
+        RequestDB::rollback();
+        return $e->getMessage();
+    }
+        
     }
 
     public function GetUsername($value){
