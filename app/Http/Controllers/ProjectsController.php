@@ -77,6 +77,30 @@ class ProjectsController extends Controller{
      
     }
 
+    public function GetSingleProject($id){
+        $project = Projects::with(['category', 'worker'])
+        ->where('id', '=' , $id)->get();
+
+        $controller = new ProjectsController();
+        
+
+        $array_values = [];
+
+        $array_values = array(
+            'id' => $project['0']->id,
+            'name' => $project['0']->name,
+            'description' => $project['0']->description,
+            'username' =>  $controller->GetUsername($project['0']->worker->User_id),
+            'images' => $controller->getAllImages($project['0']->id)
+            
+
+        );
+
+        return response()->json($array_values, 200);
+
+        
+    }
+
     public function GetUsername($value){
 
         $user = User::where('id', '=', $value)->get();

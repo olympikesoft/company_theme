@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/api/projects/{id}', 'ProjectsController@GetSingleProject');
+
 Route::get('/api/requests', 'RequestsController@getAllRequests');
 
 
