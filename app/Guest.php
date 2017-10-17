@@ -5,7 +5,7 @@ use Eloquent; // ******** This Line *********
 use DB;       // ******** This Line *********
 
 Class Guest Extends Eloquent{
-protected $table = 'post';
+protected $table = 'guest';
 protected $fillable = array('id,state, User_id');
 public $timestamps = false;
 

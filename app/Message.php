@@ -5,7 +5,7 @@ use Eloquent; // ******** This Line *********
 use DB;       // ******** This Line *********
 
 Class Message Extends Eloquent{
-protected $table = 'post';
+protected $table = 'message';
 protected $fillable = array('id,content, datetime, Request_id,  Worker_id, Guest_id');
 public $timestamps = false;
 

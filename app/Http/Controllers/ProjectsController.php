@@ -31,29 +31,32 @@ class ProjectsController extends Controller{
         {
 
             $controller = new ProjectsController();
+
+            $i = 0;
             
         foreach($projects as $project)
         {
-                 $array['category'] = $project->category->name;
-                 $array['category_id'] = $project->category->id;
-                 $array['name'] = $project->name;
-                 $array['id'] = $project->id;
-                 $array['description'] = $project->description;
+                 $array[$i]['category'] = $project->category->name;
+                 $array[$i]['category_id'] = $project->category->id;
+                 $array[$i]['name'] = $project->name;
+                 $array[$i]['id'] = $project->id;
+                 $array[$i]['description'] = $project->description;
 
                  
                  foreach($project->images as $images)
                  {
-                     $array['images'] = $images->description;
+                     $array[$i]['images'] = $images->description;
                  }
 
                  if($controller->GetUsername($project->worker->User_id)==true)
                  {
-                     $array['username'] = $controller->GetUsername($project->worker->User_id);
+                     $array[$i]['username'] = $controller->GetUsername($project->worker->User_id);
                  }
 
                  if($controller->getAllImages($project->id) == true){
-                     $array['images'] = $controller->getAllImages($project->id);
+                     $array[$i]['images'] = $controller->getAllImages($project->id);
                  }
+                 $i++;
                              
         }
         

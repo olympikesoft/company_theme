@@ -4,13 +4,13 @@ namespace App;
 use Eloquent; // ******** This Line *********
 use DB;       // ******** This Line *********
 
-Class Request Extends Eloquent{
+Class RequestDB Extends Eloquent{
 protected $table = 'request';
 protected $fillable = array('id,name, content, datetime, state, Guest_id, Request_states_id, Budget_id, Category_id, Tecnology_id');
 public $timestamps = false;
 
 
-public function worker(){
+public function guest(){
        return $this->belongsTo('App\Guest','Guest_id');
    }
 
