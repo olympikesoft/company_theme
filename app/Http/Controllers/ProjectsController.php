@@ -6,7 +6,8 @@ use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Projects;
-use App\Worker;
+use App\User;
+use App\Images;
 use View;
 
 class ProjectsController extends Controller{
@@ -15,13 +16,9 @@ class ProjectsController extends Controller{
     public function getAllProjects(){
 
         try{
-        $projects = Projects::with(['worker', 'category', 'images.projects'])
+        $projects = Projects::with(['worker', 'category'])
         ->get();
 
-
-
-        /*
-        dd($projects[0]->category['name']);*/
 
         
         $array = array();
@@ -33,20 +30,31 @@ class ProjectsController extends Controller{
         if($size > 0)
         {
 
+            $controller = new ProjectsController();
+            
         foreach($projects as $project)
         {
-           
-           
                  $array['category'] = $project->category->name;
                  $array['category_id'] = $project->category->id;
                  $array['name'] = $project->name;
                  $array['id'] = $project->id;
                  $array['description'] = $project->description;
-                 $array['worker_name'] = $project->load('worker.user')->where('User_id', '=', $project->worker->User_id);
-                
-                
+
                  
-            
+                 foreach($project->images as $images)
+                 {
+                     $array['images'] = $images->description;
+                 }
+
+                 if($controller->GetUsername($project->worker->User_id)==true)
+                 {
+                     $array['username'] = $controller->GetUsername($project->worker->User_id);
+                 }
+
+                 if($controller->getAllImages($project->id) == true){
+                     $array['images'] = $controller->getAllImages($project->id);
+                 }
+                             
         }
         
 
@@ -64,6 +72,29 @@ class ProjectsController extends Controller{
 
 
      
+    }
+
+    public function GetUsername($value){
+
+        $user = User::where('id', '=', $value)->get();
+
+        $username = $user['0']->username;
+        
+        return $username;
+
+    }
+
+    public function getAllImages($value){
+        
+        $images = Images::where('Projects_id', '=', $value)->get();
+        $array_images = [];
+
+        foreach($images as $image)
+        {
+            $array_images[] = $image->description;
+        }
+
+        return $array_images;
     }
 }
 
