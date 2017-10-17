@@ -42,7 +42,7 @@ class ProjectsController extends Controller{
                  $array['name'] = $project->name;
                  $array['id'] = $project->id;
                  $array['description'] = $project->description;
-                 $array['worker_name'] = $project->load('worker.user');
+                 $array['worker_name'] = $project->load('worker.user')->where('User_id', '=', $project->worker->User_id);
                 
                 
                  
