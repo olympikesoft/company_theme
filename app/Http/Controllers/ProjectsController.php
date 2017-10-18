@@ -26,10 +26,18 @@ class ProjectsController extends Controller{
             $project->thumbs = $request->thumbs;
             $project->Category_id = $request->Category_id;
             $project->Worker_id = $request->Worker_id;
+            $last_id = $project->save();
 
-            if($project->save())
+            if($last_id)
             {
-                RequestDB::commit();      
+                $image = new Images;
+                $image->description = $request->description;
+                $image->Projects_id = $last_id;
+
+                if($image->save()){
+                RequestDB::commit(); 
+                Images::commit();
+                }     
             }
 
 

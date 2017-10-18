@@ -109,20 +109,12 @@ class RequestsController extends Controller{
                 RequestDB::commit();                
             }
 
-
-
-
-
-
-
         } catch (\Exception $e) {
         RequestDB::rollback();
         return $e->getMessage();
     }
         
     }
-
-   
 
     public function getAllMessages($request_id, $guest_id){
         
@@ -145,5 +137,108 @@ class RequestsController extends Controller{
 
         return $array_messages;
     }
+
+    public function updateRequest($id, Request $req){
+
+      
+        $requests = RequestDB::where('id','=',$id)->findOrFail($id);
+
+        if($requests == true){
+
+            $request->name = $req->name;
+            $request->content = $req->content;
+            $request->datetime  = $req->datetime;
+            $request->state = $req->state;
+            $request->Budget_id = $req->Budget;
+            $request->$Category_id = $req->Category_id;
+
+            if($request->save()){
+                return response()->json('Updated request');
+            }
+
+        }else{
+          
+
+            response()->json($array, 200);
+        }
+
+    }
+
+    public function filterBudget($price){
+
+        $array = [];
+
+        $requests = RequestDB::where('Budget_id','=',$price)->orderBy('id', 'desc');
+
+        $length = count($requests);
+
+        if($length > 0 ){
+
+            for($i = 0; $i < $length; $i++){
+                $array[$i]['id'] = $request->id;
+                $array[$i]['category'] = $request->category->name;
+                $array[$i]['category_id'] = $request->category->id;
+                $array[$i]['content'] = $request->content;
+                $array[$i]['name'] = $request->name;
+                $array[$i]['request_states'] = $request->request_states->states;
+                $array[$i]['budget'] = $request->budget->amount;
+                $array[$i]['tecnology'] = $request->tecnology->name;
+                $array[$i]['guest_profile'] = $user->AllUserContent($request->guest->User_id);
+                    if($controller->getAllMessages($request->id, $request->guest->User_id) == true)
+                    {
+                      $array[$i]['messages'] = $controller->getAllMessages($request->id, $request->guest->User_id);
+                    }else{
+                      $array[$i]['messages'] = 'Dont have comments';
+                    }                 
+            }
+
+            response()->json($array,200);
+
+
+        }else{
+            response()->json('Not found');
+        }
+
+
+    }
+
+
+    public function filterCategory($catgory){
+        
+                $array = [];
+        
+                $requests = RequestDB::where('Category_id','=',$category)->orderBy('id', 'desc');
+        
+                $length = count($requests);
+        
+                if($length > 0 ){
+        
+                    for($i = 0; $i < $length; $i++){
+                        $array[$i]['id'] = $request->id;
+                        $array[$i]['category'] = $request->category->name;
+                        $array[$i]['category_id'] = $request->category->id;
+                        $array[$i]['content'] = $request->content;
+                        $array[$i]['name'] = $request->name;
+                        $array[$i]['request_states'] = $request->request_states->states;
+                        $array[$i]['budget'] = $request->budget->amount;
+                        $array[$i]['tecnology'] = $request->tecnology->name;
+                        $array[$i]['guest_profile'] = $user->AllUserContent($request->guest->User_id);
+                            if($controller->getAllMessages($request->id, $request->guest->User_id) == true)
+                            {
+                              $array[$i]['messages'] = $controller->getAllMessages($request->id, $request->guest->User_id);
+                            }else{
+                              $array[$i]['messages'] = 'Dont have comments';
+                            }                 
+                    }
+        
+                    response()->json($array,200);
+        
+        
+                }else{
+                    response()->json('Not found');
+                }
+        
+        
+            }
 }
 
