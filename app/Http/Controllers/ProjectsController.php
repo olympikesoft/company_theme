@@ -58,7 +58,7 @@ class ProjectsController extends Controller{
                     $array_project[$i]['description'] = $project->description;
                     $array_project[$i]['category_name'] = $project->category->name;
                     $array_project[$i]['images'] = $controller->getAllImages($project->id);
-                    $array_project[$i]['worker'] = $user->GetUsername($project->worker->User_id);
+                    $array_project[$i]['worker'] = $user->AllUserContent($project->worker->User_id);
                 }
                 return response()->json($array,  200);
 
@@ -81,7 +81,7 @@ class ProjectsController extends Controller{
             $array_project[$i]['description'] = $project->description;
             $array_project[$i]['category_name'] = $project->category->name;
             $array_project[$i]['images'] = $controller->getAllImages($project->id);
-            $array_project[$i]['worker'] = $user->GetUsername($project->worker->User_id);
+            $array_project[$i]['worker'] = $user->AllUserContent($project->worker->User_id);
         }
         return response()->json($array,  200);
         
@@ -157,7 +157,7 @@ class ProjectsController extends Controller{
             'id' => $project['0']->id,
             'name' => $project['0']->name,
             'description' => $project['0']->description,
-            'username' =>  $user->GetUsername($project['0']->worker->User_id),
+            'username' =>  $user->AllUserContent($project['0']->worker->User_id),
             'images' => $controller->getAllImages($project['0']->id)
             
 
@@ -180,14 +180,13 @@ class ProjectsController extends Controller{
         $i = 0;
         foreach($images as $image)
         {
-           $array_images[$i] = $image->description;
+            $array_images[$i] = array(
+             'image'   => $image->description
+            );
             $i++;
         }
 
-        $var = implode(",",$array_images);
-
-
-        return $var;
+        return $array_images;
     }
 }
 

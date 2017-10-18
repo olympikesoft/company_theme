@@ -9,6 +9,7 @@ use App\RequestDB;
 use App\User;
 use App\Message;
 use View;
+use App\POJO\Users;
 
 
 class RequestsController extends Controller{
@@ -17,8 +18,7 @@ class RequestsController extends Controller{
     public function getAllRequests(){
 
         try{
-        $requests = RequestDB::with(['guest', 'request_states', 'budget', 'category', 'tecnology'])
-        ->get();
+        $requests = RequestDB::with(['guest', 'request_states', 'budget', 'category', 'tecnology'])->orderBy('id', 'desc')->get();
 
 
         
@@ -33,6 +33,7 @@ class RequestsController extends Controller{
         {
 
             $controller = new RequestsController();
+            $user = new Users();
             $i = 0;
             
         foreach($requests as $request)
@@ -52,12 +53,11 @@ class RequestsController extends Controller{
                     'budget' => $request->budget->amount,
                     'tecnology' => $request->tecnology->name);
                     
-                    if($controller->GetUsername($request->guest->User_id)==true){
+                  
                      /*   array_push($array[$i], $controller->GetUsername($request->guest->User_id));*/
                      /*or*/
-                     $array[$i]['username'] = $controller->GetUsername($request->guest->User_id);
-                    }
-
+                     $array[$i]['guest_profile'] = $user->AllUserContent($request->guest->User_id);
+                   
                     if($controller->getAllMessages($request->id, $request->guest->User_id) == true)
                     {
                       /*  array_push($array[$i], $controller->getAllMessages($request->id, $request->guest->User_id));*/
@@ -122,25 +122,13 @@ class RequestsController extends Controller{
         
     }
 
-    public function GetUsername($value){
-
-        $array_details = [];
-
-        $user = User::where('id', '=', $value)->get();
-
-        $array_details = array(
-            'username' => $user['0']->username,
-            'email' => $user['0']->email
-        );
-        
-        return $array_details;
-
-    }
+   
 
     public function getAllMessages($request_id, $guest_id){
         
         $messages = Message::where('Request_id', '=', $request_id)
         ->where('Guest_id', '=', $guest_id)
+        ->orderBy('id', 'desc')
         ->get();
 
         $array_messages = [];
