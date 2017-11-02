@@ -1,0 +1,249 @@
+  /*
+Fade content bs-carousel with hero headers
+Code snippet by maridlcrmn (Follow me on Twitter @maridlcrmn) for Bootsnipp.com
+Image credits: unsplash.com
+*/
+
+/********************************/
+/*       Fade Bs-carousel       */
+/********************************/
+.fade-carousel {
+    position: relative;
+    height: 100vh;
+}
+.fade-carousel .carousel-inner .item {
+    height: 100vh;
+}
+.fade-carousel .carousel-indicators > li {
+    margin: 0 2px;
+    background-color: #f39c12;
+    border-color: #f39c12;
+    opacity: .7;
+}
+.fade-carousel .carousel-indicators > li.active {
+  width: 10px;
+  height: 10px;
+  opacity: 1;
+}
+
+/********************************/
+/*          Hero Headers        */
+/********************************/
+.hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.75);
+      -webkit-transform: translate3d(-50%,-50%,0);
+         -moz-transform: translate3d(-50%,-50%,0);
+          -ms-transform: translate3d(-50%,-50%,0);
+           -o-transform: translate3d(-50%,-50%,0);
+              transform: translate3d(-50%,-50%,0);
+}
+.hero h1 {
+    font-size: 6em;    
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.fade-carousel .carousel-inner .item .hero {
+    opacity: 0;
+    -webkit-transition: 2s all ease-in-out .1s;
+       -moz-transition: 2s all ease-in-out .1s; 
+        -ms-transition: 2s all ease-in-out .1s; 
+         -o-transition: 2s all ease-in-out .1s; 
+            transition: 2s all ease-in-out .1s; 
+}
+.fade-carousel .carousel-inner .item.active .hero {
+    opacity: 1;
+    -webkit-transition: 2s all ease-in-out .1s;
+       -moz-transition: 2s all ease-in-out .1s; 
+        -ms-transition: 2s all ease-in-out .1s; 
+         -o-transition: 2s all ease-in-out .1s; 
+            transition: 2s all ease-in-out .1s;    
+}
+
+/********************************/
+/*            Overlay           */
+/********************************/
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #080d15;
+    opacity: .7;
+}
+
+/********************************/
+/*          Custom Buttons      */
+/********************************/
+.btn.btn-lg {padding: 10px 40px;}
+.btn.btn-hero,
+.btn.btn-hero:hover,
+.btn.btn-hero:focus {
+    color: #f5f5f5;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+    outline: none;
+    margin: 20px auto;
+}
+
+/********************************/
+/*       Slides backgrounds     */
+/********************************/
+.fade-carousel .slides .slide-1, 
+.fade-carousel .slides .slide-2,
+.fade-carousel .slides .slide-3 {
+  height: 100vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.fade-carousel .slides .slide-1 {
+  background-image: url(https://www.um.edu.mt/__data/assets/image/0020/260606/varieties/banner.jpg); 
+}
+.fade-carousel .slides .slide-2 {
+  background-image: url(https://udemy-images.udemy.com/course/750x422/79086_37be_9.jpg);
+}
+.fade-carousel .slides .slide-3 {
+  background-image: url(https://3dnews.ru/assets/external/illustrations/2014/10/28/904306/1.png);
+}
+
+/********************************/
+/*          Media Queries       */
+/********************************/
+@media screen and (min-width: 980px){
+    .hero { width: 980px; }    
+}
+@media screen and (max-width: 640px){
+    .hero h1 { font-size: 4em; }    
+}
+       #myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+}
+
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+       .btn-primary {
+                background-color: #E7A331;
+                color: #ffffff;
+                border: 2px solid #E7A331;
+                text-transform: uppercase;
+                border-radius: 4px;
+            }
+            .btn-primary:hover {
+                background-color: #d6962c;
+                border-color: #d6962c;
+                color: #fff;
+            }
+
+.portfolio{
+                background:url(assets/images/portfoliobg.jpg) center top no-repeat;
+                -moz-background-size: cover;
+                -webkit-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                width: 100%;
+                overflow: hidden;	
+            }
+
+            .portfolio_content{
+                padding-bottom:120px;
+                display:inline-block;
+            }
+            .portfolio .portfolio_content .head_title h3{
+                color:#000000;
+            }
+            .portfolio .portfolio_content .head_title h4{
+                color:#000000;
+            }
+
+            .single_portfolio_text{
+                display:inline-block;
+                padding:0;
+                position:relative;
+                overflow:hidden;
+
+            }
+            .single_portfolio_text img{
+                width:100%;
+            }
+
+            .single_portfolio_text:hover .portfolio_images_overlay{
+                top:5%;
+                left: 5%;
+            }
+
+            .portfolio_images_overlay{
+                width: 90%;
+                height: 90%;
+                background: rgba(0, 0, 0, .5);
+                padding: 20px;
+                margin: 0 auto;
+                top:-100%;
+                left: 5%;
+                position: absolute;
+                transition:.6s;
+            }
+            .portfolio_images_overlay h6{
+                text-transform:uppercase;
+                color:#fff;
+                font-size:2rem;
+                line-height:2.575rem;
+                font-weight: 500;
+                margin-bottom: 1rem;
+                margin-top: 1rem;
+            }
+
+            .portfolio_images_overlay p.product_price{
+                font-size:2.5725rem;
+                color:#fff;
+                line-height:3rem;
+            }
+            .portfolio_images_overlay .btn{
+                margin-top: 25px;
+            }
+
+            @media (min-width:769px) and (max-width:991px) {
+                .portfolio_images_overlay {
+                    padding: 0px;
+                }
+            }
+            @media (max-width:768px) {
+                .portfolio_images_overlay{
+                    padding: 170px 20px;
+                }
+            }
+            @media (max-width:580px) {
+                .portfolio_images_overlay{
+                    padding: 100px 20px;
+                }
+            }
+            @media (max-width:480px) {
+                .portfolio_images_overlay{
+                    padding: 40px 20px;
+                }
+            }
+            @media (max-width:320px) {
+                .portfolio_images_overlay{
+                    padding: 20px;
+                }
+            }
